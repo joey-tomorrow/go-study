@@ -72,3 +72,24 @@ func main() {
 
 	fmt.Println(findIntersect(node1, node2).Value)
 }
+
+
+func findIntersect(node1, node2 *Node) *Node {
+	var l1, l2 int
+	t1 := node1
+	t2 := node2
+	for t1 != nil {
+		l1++
+		t1 = t1.Next
+	}
+
+	for t2 != nil {
+		l2++
+		t2 = t2.Next
+	}
+
+	gap := l1 - l2
+
+
+
+}

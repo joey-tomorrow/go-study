@@ -28,8 +28,34 @@ func main() {
 	head3.Next = head4
 	head4.Next = head5
 
-	fmt.Print(reverse3(head1))
+	result := reverse5(head1)
+	fmt.Print(result)
 
+}
+
+func reverse5(head *Node) *Node {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	newNode := reverse5(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return newNode
+}
+
+func reverse4(head *Node) *Node {
+	var pre *Node
+	var next *Node
+
+	for head != nil {
+		next = head.Next
+		head.Next = pre
+		pre = head
+		head = next
+	}
+
+	return pre
 }
 
 func reverse(head *Node) *Node {

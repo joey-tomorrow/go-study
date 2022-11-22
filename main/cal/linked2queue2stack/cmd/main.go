@@ -1,8 +1,8 @@
 package main
 
 import (
-	"awesomeProject1/main/cal/linked2queue2stack"
 	"fmt"
+	"go-study/main/cal/linked2queue2stack"
 )
 
 func main() {

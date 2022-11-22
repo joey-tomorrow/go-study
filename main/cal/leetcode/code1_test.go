@@ -104,3 +104,8 @@ func Test_TwoSum(t *testing.T) {
 	nums3 := []int{3, 2, 4}
 	fmt.Println(twoSum1(nums3, 6))
 }
+
+func Test_whitelist(t *testing.T) {
+	fmt.Println(0 & 1 << 32)
+	fmt.Println(0 & 1 << 33)
+}

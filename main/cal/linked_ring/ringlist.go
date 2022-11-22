@@ -50,24 +50,56 @@ func generateLinkedList(l int) *Node {
 	return head
 }
 
+func IsRingListNew(head *Node) *Node {
+	if head == nil {
+		return nil
+	}
+
+	fast := head
+	slow := head
+
+	for {
+		if fast.Next == nil {
+			return nil
+		}
+
+		if fast != head && fast == slow{
+			break
+		}
+
+		fast = fast.Next.Next
+		slow = slow.Next
+	}
+
+	fast = head
+	for fast != slow{
+		fast = fast.Next
+		slow = slow.Next
+	}
+
+	return fast
+}
+
 func main() {
 	list := generateLinkedList(4)
 	list1 := generateLinkedList(2)
 	list.Next.Next.Next.Next = list1
 	list1.Next.Next = list.Next.Next
 
+	fmt.Println(IsRingListNew(list) == list.Next.Next)
 	fmt.Println(IsRingList(list) == list.Next.Next)
 
 	head := &Node{Value: 1}
 	node1 := &Node{Value: 2}
-	node2 := &Node{Value: 1}
-	node3 := &Node{Value: 3}
+	node2 := &Node{Value: 2}
+	node3 := &Node{Value: 1}
 
 	head.Next = node1
 	node1.Next = node2
 	node2.Next = node3
 
 	fmt.Println(IsHuiwen(head))
+	fmt.Println(IsHuiwenNew(head))
 }
 
 //是否回文
@@ -107,4 +139,40 @@ func IsHuiwen(head *Node) bool {
 	}
 
 	return has
+}
+
+
+func IsHuiwenNew(head *Node) bool {
+	l := head
+	f := head
+
+	for {
+		if f.Next == nil || f.Next.Next == nil {
+			break
+		}
+
+		l = l.Next
+		f = f.Next.Next
+	}
+
+	right := l.Next
+	var pre, next *Node
+	for right != nil{
+		next = right.Next
+		right.Next = pre
+		pre = right
+		right = next
+	}
+
+	left := head
+	for pre != nil && left != nil{
+		if pre.Value != left.Value {
+			return false
+		}
+
+		left = left.Next
+		pre = pre.Next
+	}
+
+	return true
 }

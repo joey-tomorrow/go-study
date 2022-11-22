@@ -7,6 +7,8 @@ import (
 	"go/token"
 )
 
+//https://www.cnblogs.com/double12gzh/p/13632267.html
+
 func main() {
 	expr := `a == 1 && b == 2`
 	fset := token.NewFileSet()

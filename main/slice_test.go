@@ -6,13 +6,16 @@ import (
 )
 
 func Test_Slice(t *testing.T) {
-	newSlice := new([]int)
-	fmt.Println(len(*newSlice))
-	*newSlice = append(*newSlice, 1)
-	for k, v := range *newSlice {
-		fmt.Printf("K:%d V:%d", k, v)
-	}
+	//address := make([]int, 10)
+	var address []int
+	address = append(address, 1)
+	address = append(address, 2)
+	//address = append(address, 1)
 
-	makeSlice := make([]int, 0)
-	makeSlice[0] = 1
+	fmt.Println(address[2:])
+
+	var StreetComplement = "123456789012345678901"
+	fmt.Println(StreetComplement[:20])
+	fmt.Println(fmt.Sprintf("%-20v", StreetComplement))
+
 }

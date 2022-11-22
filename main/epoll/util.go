@@ -25,6 +25,7 @@ func MkEpoll() (*epoll, error) {
 		connections: make(map[int]net.Conn),
 	}, nil
 }
+
 func (e *epoll) Add(conn net.Conn) error {
 	// Extract file descriptor associated with the connection
 	fd := socketFD(conn)

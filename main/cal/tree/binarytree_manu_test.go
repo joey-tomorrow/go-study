@@ -12,6 +12,66 @@ type Node struct {
 	Right *Node
 }
 
+func midManu1121(node *Node) {
+	if node == nil {
+		return
+	}
+	stack := linked2queue2stack.NewStack()
+
+	tmp := node
+	for tmp != nil && !stack.IsEmpty() {
+		if tmp != nil {
+			stack.Put(node)
+			tmp = tmp.Left
+		} else {
+			nod := stack.Pop().(*Node)
+			fmt.Println(nod.Value)
+			tmp = nod.Right
+		}
+	}
+}
+
+func midManu(node *Node) {
+	if node == nil {
+		return
+	}
+
+	stack := linked2queue2stack.NewStack()
+	tmp := node
+	for tmp != nil || !stack.IsEmpty(){
+		if tmp != nil {
+			stack.Put(tmp)
+			tmp = tmp.Left
+		} else {
+			nod := stack.Pop().(*Node)
+			fmt.Print(nod.Value)
+			tmp = nod.Right
+		}
+	}
+
+}
+
+func postManu(node *Node) {
+	if node == nil {
+		return
+	}
+
+	stack := linked2queue2stack.NewStack()
+	tmp := node
+	for tmp != nil || !stack.IsEmpty(){
+		if tmp != nil {
+			tmp = tmp.Left
+			stack.Put(tmp)
+		} else {
+			nod := stack.Pop().(*Node)
+			fmt.Print(nod.Value)
+			tmp = nod.Right
+		}
+	}
+
+}
+
+
 func preManu(node *Node) {
 	if node == nil {
 		return
@@ -83,8 +143,8 @@ func Test_premanu(t *testing.T) {
 	node3.Left = node6
 	node3.Right = node7
 
-	preManu(node1)
+	midManu(node1)
 	fmt.Println("------------------------------------")
-	pre(node1)
+	mid(node1)
 	fmt.Println("------------------------------------")
 }

@@ -2,6 +2,7 @@ package gofunc
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -22,6 +23,10 @@ func (o *ObjectAdder) Add(a int, b int) int {
 	return a + b
 }
 
+func (o *ObjectAdder) Add1(a int, b int) int {
+	return a + b
+}
+
 func Test_FuncGo(t *testing.T) {
 	var a Adder
 	fmt.Printf("Adder: %v\n", a)
@@ -38,5 +43,8 @@ func Test_FuncGo(t *testing.T) {
 
 	fmt.Println("========================")
 	fmt.Printf("ObjectAdder.Add: %T\n", (*ObjectAdder).Add)
+	fmt.Printf("ObjectAdder.Add: %T\n", (*ObjectAdder).Add1)
+	fmt.Printf("ObjectAdder.Add: %T\n", reflect.TypeOf((*ObjectAdder).Add1))
 	fmt.Printf("ObjectAdder.Add: %d + %d = %d\n", 1, 1, (*ObjectAdder).Add(nil, 1, 1))
+
 }
