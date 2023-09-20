@@ -1,0 +1,43 @@
+name: Azure Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up SSH connection to Azure server
+        uses: webfactory/ssh-agent@v0.5.2
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: SSH to Azure server and pull repository
+        run: |
+          ssh azureuser@20.25.181.110  'cd /home/azureuser/deploy/project/aiplatform/fontend && git pull'
+
+      - name: Build Docker image
+        run: |
+          docker build -t frontend:$(date +%Y%m%d%H%M%S) .
+
+      - name: Check if port 3000 is available
+        run: |
+          if lsof -Pi :3000 -sTCP:LISTEN -t >/dev/null; then
+            echo "Port 3000 is already in use."
+          else
+            docker run -p 3000:3000 frontend:$(date +%Y%m%d%H%M%S)
+          fi
+
+      - name: Check if port 3001 is available
+        run: |
+          if lsof -Pi :3001 -sTCP:LISTEN -t >/dev/null; then
+            echo "Port 3001 is already in use."
+          else
+            docker run -p 3001:3001 frontend:$(date +%Y%m%d%H%M%S)
+          fi
