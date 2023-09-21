@@ -20,7 +20,7 @@ jobs:
 
       - name: SSH to Azure server and pull repository
         run: |
-          ssh azureuser@20.25.181.110  'cd /home/azureuser/deploy/project/aiplatform/fontend && git pull'
+          ssh azureuser@20.25.181.110  'sudo su && cd /home/azureuser/deploy/project/aiplatform/frontend && git pull'
 
       - name: Build Docker image
         run: |
