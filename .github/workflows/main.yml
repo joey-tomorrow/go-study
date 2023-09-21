@@ -18,6 +18,12 @@ jobs:
     #    with:
     #      ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Install SSH client
+        run: sudo apt-get install -y openssh-client
+
+      - name: Configure SSH known hosts
+        run: ssh-keyscan 20.25.181.110 >> ~/.ssh/known_hosts
+      
       - name: SSH to Azure server and pull repository
         run: |
           ssh -i ${{ secrets.SSH_PRIVATE_KEY }} azureuser@20.25.181.110  'echo hello world'
