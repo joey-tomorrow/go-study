@@ -22,11 +22,11 @@ jobs:
         run: sudo apt-get install -y openssh-client
 
       - name: Configure SSH known hosts
-        run: ssh-keyscan -H 20.25.181.110 >> ~/.ssh/known_hosts
+        run: ssh-keyscan -H 20.25.181.110 >> $HOME/.ssh/known_hosts
       
       - name: SSH to Azure server and pull repository
         run: |
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} azureuser@20.25.181.110  'echo hello world'
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} -o StrictHostKeyChecking=no azureuser@20.25.181.110  'echo hello world'
 
       - name: Build Docker image
         run: |
