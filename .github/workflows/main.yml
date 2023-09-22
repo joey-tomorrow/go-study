@@ -21,6 +21,9 @@ jobs:
       - name: Install SSH client
         run: sudo apt-get install -y openssh-client
 
+      - name: Touch SSH directory
+        run: sudo mkdir $HOME/.ssh
+
       - name: Configure SSH known hosts
         run: ssh-keyscan -H 20.25.181.110 >> $HOME/.ssh/known_hosts
       
