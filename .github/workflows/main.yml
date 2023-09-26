@@ -27,7 +27,7 @@ jobs:
 
       - name: SSH into Azure server and pull code
         run: |
-          ssh -i ~/.ssh/id_rsa azureuser@20.25.181.110 "echo hello world"
+          ssh -i ~/.ssh/id_rsa azureuser@20.25.181.110 "sudo su I && echo hello world"
 
       - name: Build Docker image
         run: |
