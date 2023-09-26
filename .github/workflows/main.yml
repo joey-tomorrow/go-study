@@ -18,6 +18,17 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Set up SSH connection
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+
+      - name: SSH into Azure server and pull code
+        run: |
+          ssh -i ~/.ssh/id_rsa azureuser@20.25.181.110 "echo hello world"
+
       - name: Install SSH client
         run: sudo apt-get install -y openssh-client
 
