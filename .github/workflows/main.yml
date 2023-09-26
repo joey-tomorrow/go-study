@@ -21,22 +21,13 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
+     
+      - name: Configure SSH known hosts
+        run: ssh-keyscan -H 20.25.181.110 >> $HOME/.ssh/known_hosts
+
       - name: SSH into Azure server and pull code
         run: |
           ssh -i ~/.ssh/id_rsa azureuser@20.25.181.110 "echo hello world"
-
-      - name: Install SSH client
-        run: sudo apt-get install -y openssh-client
-
-      - name: Touch SSH directory
-        run:  mkdir $HOME/.ssh
-
-      - name: Configure SSH known hosts
-        run: ssh-keyscan -H 20.25.181.110 >> $HOME/.ssh/known_hosts
-      
-      - name: SSH to Azure server and pull repository
-        run: |
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} -o StrictHostKeyChecking=no azureuser@20.25.181.110  'echo hello world'
 
       - name: Build Docker image
         run: |
